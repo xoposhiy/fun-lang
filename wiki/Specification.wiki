@@ -11,7 +11,7 @@
 1. Program -> (Sentence '.') *
 
 2. Sentence -> FunCall
-3. FunCall -> NAME [ '(' FunCall* ')' ]
+3. FunCall -> NAME ( '(' FunCall* ')' )*
 
 4. Sentence -> FunDef
 5. FunDef  -> fun NAME [ '(' NAME* ')' ] FunCall
