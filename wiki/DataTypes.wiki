@@ -29,21 +29,18 @@
 
 Функции-константы: `X()`, где X — запись действительного числа.
 
-Функции-операции: +, -, *, /, **, sin, con, tg, ctg, arctg, arcctg, =, #, <, >, >=, <=
+Функции-операции: +, -, `*`, /, `**` (возведение в степень), sin, cos, tg, ctg, arctg, arcctg, =, #, <, >, >=, <=
 
 Отображение: строковое представление действительного числа.
 
 == List ==
-[DataTypeList]
+[DataTypeList Тип данных List]
 
 == Char ==
-[DataTypeChar]
+[DataTypeChar Тип данных Char]
 
 == String ==
-[DataTypeString]
-
-== Reader ==
-[DataTypeReader]
+[DataTypeString Тип данных String]
 
 ----
 [Specification]
