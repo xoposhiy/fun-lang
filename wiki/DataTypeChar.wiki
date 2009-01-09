@@ -37,3 +37,6 @@ chr(16).
 chr(13).
 ->'\r'
 }}}
+
+----
+[Specification] [DataTypes]
