@@ -1,5 +1,9 @@
 #summary Перечисление встроенных функций
 
+[FunctionDeffun deffun!]
+
+[FunctionSeq seq!]
+
 [FunctionIf if]
 
 [FunctionSwitch switch]
