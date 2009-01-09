@@ -1,0 +1,5 @@
+#summary Перечисление встроенных функций
+
+[FunctionIf if]
+
+[FunctionSwitch switch]
