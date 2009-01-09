@@ -21,6 +21,9 @@
 == real ==
 [DataTypeReal]
 
+== char ==
+[DataTypeChar]
+
 == string ==
 [DataTypeString]
 
