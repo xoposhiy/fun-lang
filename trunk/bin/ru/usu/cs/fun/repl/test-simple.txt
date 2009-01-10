@@ -1,0 +1,6 @@
+fun>
+	one(1)
+...>
+	.
+fun one is undefined$
+fun>

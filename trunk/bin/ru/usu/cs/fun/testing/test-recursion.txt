@@ -1,0 +1,49 @@
+fun inf inf.
+
+fun testLazy(x)
+	if(>(x 0) 1 inf).
+	
+=(1 testLazy(1)).
+
+fun fib(n)
+	if (<(n 2) 
+		1
+		+(fib(-(n 1)) fib(-(n 2)))
+	).
+
+=(1 fib(0)).
+=(1 fib(1)).
+=(2 fib(2)).
+=(3 fib(3)).
+
+fun fact(n) 
+	if(=(n 1) 
+		1 
+		*(fact(-(n 1)) n)
+	).
+
+=(1 fact(1)).
+=(2 fact(2)).
+=(6 fact(3)).
+=(24 fact(4)).
+=(120 fact(5)).
+
+fun gcd(a b)
+	if(&(=(a 0) =(b 0)) 
+		1
+		if(=(a 0) 
+			b
+			if(>(a b) 
+				gcd(b a) 
+				gcd(%(b a) a)
+			)
+		)
+	).
+			
+		
+=(gcd(6 14) 2).
+=(gcd(14 6) 2).
+=(gcd(0 0) 1).
+=(gcd(1 2) 1).
+=(gcd(2 2) 2).
+=(gcd(23 1024) 1).
