@@ -5,6 +5,8 @@
 
 Кроме того, желательно иметь [http://subclipse.tigris.org Subclipse] — плагин к eclipse для работы с svn. Его можно найти, скачать и поставить средствами самого же eclipse (Help → Software Updates → Find and Install).
 
+Можно обойтись и без Subclipse, но тогда нужен будет какой-то другой клиент для работы с [http://ru.wikipedia.org/wiki/Система_управления_версиями сервером хранения исходников] (svn). Например, [http://tortoisesvn.tigris.org/ TortoiseSVN] 
+
 
 = Как взять исходники? =
 
