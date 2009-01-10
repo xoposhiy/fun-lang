@@ -3,7 +3,7 @@
 = Среда и инструменты разработки =
 Вам понадобятся Java 6.0 и Eclipse v3.1.1 или выше. И то и другое можно скачать с официальных сайтов, либо с городского (Екатеринбург) адреса http://courses.busin.usu.ru/oop/
 
-Кроме того, желательно иметь [[http://subclipse.tigris.org Subclipse]] — плагин к eclipse для работы с svn. Его можно найти, скачать и поставить средствами самого же eclipse (Help → Software Updates → Find and Install).
+Кроме того, желательно иметь [http://subclipse.tigris.org Subclipse] — плагин к eclipse для работы с svn. Его можно найти, скачать и поставить средствами самого же eclipse (Help → Software Updates → Find and Install).
 
 
 = Как взять исходники =
