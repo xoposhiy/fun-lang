@@ -1,6 +1,7 @@
 #summary Описание функции switch
 #labels Phase-Requirements
 
+[http://code.google.com/p/fun-lang/issues/detail?id=15 Issue 15]
 
 Функция `switch` эмулирует конструкцию `switch` в императивных языках программирования. Она может иметь произвольное нечетное количество аргументов и работает следующим образом.
 
