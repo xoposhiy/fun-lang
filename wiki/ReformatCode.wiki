@@ -1,6 +1,8 @@
 #summary API и утилита для переформатирования кода согласно некоторым правилам.
 #labels Phase-Requirements
 
+[http://code.google.com/p/fun-lang/issues/detail?id=2 Issue 2]
+
 = Правила форматирования кода =
 ==Варианты форматирования определения функции==
 Однострочный:
