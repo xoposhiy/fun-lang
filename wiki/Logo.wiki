@@ -1,1 +1,4 @@
+#summary Логотип языка fun.
+
 http://fun-lang.googlecode.com/svn/wiki/fun-logo.png
+
