@@ -2,8 +2,8 @@
 
 [FunctionDeffun deffun!]
 
-[FunctionSeq seq!]
-
 [FunctionIf if]
+
+[FunctionSeq seq!]
 
 [FunctionSwitch switch]
