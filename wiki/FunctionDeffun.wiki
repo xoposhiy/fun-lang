@@ -1,6 +1,8 @@
 #summary Функция `deffun!` для определения новых функций.
 #labels Phase-Requirements
 
+[http://code.google.com/p/fun-lang/issues/detail?id=17 Issue 17]
+
 Вызов функции `deffun!(f(a b c) g(a b c))` эквивалентен выполнению предложения `fun f(a b c) g(a b c).`
 
 Эта функция является [DirtyFunctions грязной], так как может влиять на работу других функций, которые используют функцию `f`.
