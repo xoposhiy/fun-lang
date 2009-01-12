@@ -6,4 +6,6 @@
 
 [FunctionSeq seq!]
 
+[FunctionSequence sequence]
+
 [FunctionSwitch switch]
