@@ -1,6 +1,6 @@
 package ru.usu.cs.fun.utils;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -9,10 +9,6 @@ import java.util.List;
  */
 public class Listof {
 	public static List<String> strings(String... args) {
-		ArrayList<String> res = new ArrayList<String>();
-		for (String s : args) {
-			res.add(s);
-		}
-		return res;
+		return Arrays.asList(args);
 	}
 }
