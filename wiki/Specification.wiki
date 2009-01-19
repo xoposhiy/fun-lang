@@ -15,7 +15,7 @@ _Разделы, помеченные символом «`↑↑`» описыв
 3. FunCall -> NAME ( '(' FunCall* ')' )*
 
 4. Sentence -> FunDef
-5. FunDef  -> fun NAME [ '(' NAME* ')' ] FunCall
+5. FunDef  -> 'fun' NAME [ '(' NAME* ')' ] FunCall
 }}}
 
 1. Программа — это последовательность предложений, каждое из которых заканчивается точкой.
