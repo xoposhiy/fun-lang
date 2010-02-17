@@ -93,11 +93,11 @@ if (> (+ 2 2) 3)
 
 Продемонстрируем ленивость в действии:
 {{{
-let infinity := fun(x) infinity(x);
+let infinity := fun(x) infinity x;
 
 let testLazy := fun(x) 
 	if (> x 0) 1 infinity;
 	
-testLazy(1);
+testLazy 1;
 -> 1
 }}}
