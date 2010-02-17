@@ -1,4 +1,0 @@
-if(true true false).
-if(false false true).
-!(if(true false true)).
-!(if(false true false)).
