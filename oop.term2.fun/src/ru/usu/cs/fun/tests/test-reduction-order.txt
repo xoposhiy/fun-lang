@@ -1,5 +1,6 @@
 let inf := fun(x) inf;
-let f := true true (inf true);
+let if := fun(cond) fun(t) fun(f) cond t f;
+let one := if true 1 (inf true);
 
-f;
-//>true
+one;
+//>1
