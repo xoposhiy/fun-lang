@@ -14,7 +14,7 @@ public class Int extends Term {
 
 	@Override
 	public String toString(TermsSubstitutor subst) {
-		return value + "d";
+		return value + "";
 	}
 
 	@Override

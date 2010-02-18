@@ -28,6 +28,8 @@ public class Abstraction extends Term {
 		String newArgName = argName;
 		Term newBody = body;
 		if (value != value.substitute(argName, Term.bottom)) {
+			// argName встречается в выражении value в качетсве свободной
+			// переменной. Надо менять имя аргумента, иначе будет путаница.
 			newArgName = newName();
 			newBody = body.substitute(argName, new Variable(newArgName));
 		}
@@ -59,7 +61,5 @@ public class Abstraction extends Term {
 	@Override
 	public String toString(TermsSubstitutor substitutor) {
 		return "fun(" + argName + ") " + substitutor.substitute(body).toString();
-		// return '\u03BB' + argName + "." +
-		// substitutor.substitute(body).toString();
 	}
 }
