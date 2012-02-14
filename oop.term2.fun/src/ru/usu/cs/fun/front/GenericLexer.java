@@ -1,4 +1,4 @@
-package ru.usu.cs.fun.front;
+п»їpackage ru.usu.cs.fun.front;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +32,7 @@ public class GenericLexer implements Lexer {
 					currentLexeme = createLexeme(beginPos, notDead);
 			} while (notDead.currentState() != RecognizerState.dead && reader.next() >= 0);
 			if (currentLexeme == null)
-				throw new RuntimeException("не разобрал " + reader.toString());
+				throw new RuntimeException("РЅРµ СЂР°Р·РѕР±СЂР°Р» " + reader.toString());
 		}
 		if (currentLexeme != null && currentLexeme instanceof InvisibleLexeme)
 			return readNext();

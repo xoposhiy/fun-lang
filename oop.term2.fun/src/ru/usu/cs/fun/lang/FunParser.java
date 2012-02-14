@@ -1,4 +1,4 @@
-package ru.usu.cs.fun.lang;
+п»їpackage ru.usu.cs.fun.lang;
 
 import ru.usu.cs.fun.back.Abstraction;
 import ru.usu.cs.fun.back.Application;
@@ -29,8 +29,8 @@ public class FunParser extends AbstractLL1Parser {
 		return new FunLexer(reader);
 	}
 
-	// последовательно выполняет все предложения из programBlock
-	// возвращает результат выполнения последнего из них
+	// РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ РІС‹РїРѕР»РЅСЏРµС‚ РІСЃРµ РїСЂРµРґР»РѕР¶РµРЅРёСЏ РёР· programBlock
+	// РІРѕР·РІСЂР°С‰Р°РµС‚ СЂРµР·СѓР»СЊС‚Р°С‚ РІС‹РїРѕР»РЅРµРЅРёСЏ РїРѕСЃР»РµРґРЅРµРіРѕ РёР· РЅРёС…
 	public Term eval(String programBlock) {
 		Lexer lexer = createLexer(new CharReader(programBlock));
 		Object res = executeNext(lexer);
@@ -40,7 +40,7 @@ public class FunParser extends AbstractLL1Parser {
 		return (Term) res;
 	}
 
-	// вычитывает из лексера и выполняет одно очередное предложение
+	// РІС‹С‡РёС‚С‹РІР°РµС‚ РёР· Р»РµРєСЃРµСЂР° Рё РІС‹РїРѕР»РЅСЏРµС‚ РѕРґРЅРѕ РѕС‡РµСЂРµРґРЅРѕРµ РїСЂРµРґР»РѕР¶РµРЅРёРµ
 	public Term evalNext(Lexer lexer) {
 		return (Term) executeNext(lexer);
 	}
