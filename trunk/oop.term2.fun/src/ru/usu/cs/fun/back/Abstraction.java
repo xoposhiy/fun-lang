@@ -1,4 +1,4 @@
-package ru.usu.cs.fun.back;
+п»їpackage ru.usu.cs.fun.back;
 
 public class Abstraction extends Term {
 
@@ -31,8 +31,8 @@ public class Abstraction extends Term {
 		String newArgName = argName;
 		Term newBody = body;
 		if (value != value.substitute(argName, new Variable(""))) {
-			// argName встречается в выражении value в качетсве свободной
-			// переменной. Надо менять имя аргумента, иначе будет путаница.
+			// argName РІСЃС‚СЂРµС‡Р°РµС‚СЃСЏ РІ РІС‹СЂР°Р¶РµРЅРёРё value РІ РєР°С‡РµС‚СЃРІРµ СЃРІРѕР±РѕРґРЅРѕР№
+			// РїРµСЂРµРјРµРЅРЅРѕР№. РќР°РґРѕ РјРµРЅСЏС‚СЊ РёРјСЏ Р°СЂРіСѓРјРµРЅС‚Р°, РёРЅР°С‡Рµ Р±СѓРґРµС‚ РїСѓС‚Р°РЅРёС†Р°.
 			newArgName = newName();
 			newBody = body.substitute(argName, new Variable(newArgName));
 		}
