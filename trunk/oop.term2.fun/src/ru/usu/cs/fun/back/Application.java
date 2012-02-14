@@ -11,12 +11,12 @@ public class Application extends Term {
 	}
 
 	@Override
-	public Term eval(Scope scope, EvalObserver observer) {
-		Term afterApplication = fun.apply(arg, scope, observer);
+	public Term eval(Scope scope) {
+		Term evaluatedFun = fun.eval(scope);
+		Term afterApplication = evaluatedFun.apply(arg, scope);
 		if (afterApplication == null)
 			return this;
-		observer.onReduction(this, afterApplication);
-		return afterApplication.eval(scope, observer);
+		return afterApplication.eval(scope);
 	}
 
 	@Override
@@ -29,11 +29,11 @@ public class Application extends Term {
 	}
 
 	@Override
-	public Term apply(Term arg, Scope scope, EvalObserver observer) {
-		Term evaluted = eval(scope, observer);
+	public Term apply(Term arg, Scope scope) {
+		Term evaluted = eval(scope);
 		if (evaluted == this)
 			return null;
-		return evaluted.apply(arg, scope, observer);
+		return evaluted.apply(arg, scope);
 	}
 
 	@Override
