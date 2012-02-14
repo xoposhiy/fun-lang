@@ -5,13 +5,8 @@ public abstract class Term {
 
 	// Проводит редукцию выражения до нормальной формы.
 	// Другими словами вычисляет выражение.
-	// О каждом шаге редукции сообщается observer-у.
-	public Term eval(Scope scope, EvalObserver observer) {
-		return this;
-	}
-
 	public Term eval(Scope scope) {
-		return eval(scope, EvalObserver.nullObserver);
+		return this;
 	}
 
 	// Подставляет вместо всех свободных вхождений
@@ -50,10 +45,7 @@ public abstract class Term {
 	// Попытка вызвать текущий терм как функцию, передав в нее аргумент arg.
 	// Если применение не приводит ни к одной редукции,
 	// то метод возвращает null, что означает "применение невозможно".
-	public Term apply(Term arg, Scope scope, EvalObserver observer) {
+	public Term apply(Term arg, Scope scope) {
 		return null;
 	}
-
-	// Особое значение _|_ — сигнализирующее об ошибке.
-	public static Term bottom = new Bottom();
 }

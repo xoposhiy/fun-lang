@@ -16,7 +16,7 @@ public class Bool extends Abstraction {
 	private final String string;
 
 	private Bool(String result) {
-		super("true", new Abstraction("false", new Variable(result)));
+		super("true", true, new Abstraction("false", true, new Variable(result)));
 		this.string = result;
 	}
 

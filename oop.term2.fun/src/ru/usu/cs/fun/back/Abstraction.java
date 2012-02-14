@@ -3,21 +3,24 @@ package ru.usu.cs.fun.back;
 public class Abstraction extends Term {
 
 	private final String argName;
+	private final Boolean lazyArg;
 	private final Term body;
 
-	public Abstraction(String argName, Term body) {
+	public Abstraction(String argName, Boolean lazyArg, Term body) {
 		super();
 		this.argName = argName;
+		this.lazyArg = lazyArg;
 		this.body = body;
 	}
 
 	@Override
-	public Term apply(Term arg, Scope scope, EvalObserver observer) {
+	public Term apply(Term arg, Scope scope) {
+		if (!lazyArg) arg = arg.eval(scope);
 		return body.substitute(argName, arg);
 	}
 
 	@Override
-	public Term eval(Scope scope, EvalObserver observer) {
+	public Term eval(Scope scope) {
 		return this;
 	}
 
@@ -27,13 +30,13 @@ public class Abstraction extends Term {
 			return this;
 		String newArgName = argName;
 		Term newBody = body;
-		if (value != value.substitute(argName, Term.bottom)) {
+		if (value != value.substitute(argName, new Variable(""))) {
 			// argName встречается в выражении value в качетсве свободной
 			// переменной. Надо менять имя аргумента, иначе будет путаница.
 			newArgName = newName();
 			newBody = body.substitute(argName, new Variable(newArgName));
 		}
-		return new Abstraction(newArgName, newBody.substitute(name, value));
+		return new Abstraction(newArgName, lazyArg, newBody.substitute(name, value));
 	}
 
 	@Override

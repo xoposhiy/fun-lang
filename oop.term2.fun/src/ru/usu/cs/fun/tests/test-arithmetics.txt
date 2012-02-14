@@ -1,6 +1,6 @@
-let _0 := fun(f) fun(x) x;
-let succ := fun(n) fun(f) fun(x) f (n f x);
-let pred := fun(n) fun(f) fun(x) n (fun(g) fun(h) h (g f)) (fun(u) x) (fun(u) u);
+let _0 := fun(~f) fun(~x) ~x;
+let succ := fun(~n) fun(~f) fun(~x) ~f (~n ~f ~x);
+let pred := fun(~n) fun(~f) fun(~x) ~n (fun(~g) fun(~h) ~h (~g ~f)) (fun(~u) ~x) (fun(~u) ~u);
 let _1 := succ _0;
 let _2 := succ _1;
 let _3 := succ _2;
@@ -11,10 +11,10 @@ let _7 := succ _6;
 let _8 := succ _7;
 let _9 := succ _8;
 
-let plus := fun(m) fun(n) fun(f) fun(x) m f (n f x);
-let sub := fun(m) fun(n) n pred m;
-let isZero := fun(n) n (fun(x) false) true; 
-let eq := fun(n) fun(m) isZero (sub n m);
+let plus := fun(~m) fun(~n) fun(~f) fun(~x) ~m ~f (~n ~f ~x);
+let sub := fun(~m) fun(~n) ~n pred ~m;
+let isZero := fun(~n) ~n (fun(~x) false) true; 
+let eq := fun(~n) fun(~m) isZero (sub ~n ~m);
 
 true;
 //>true

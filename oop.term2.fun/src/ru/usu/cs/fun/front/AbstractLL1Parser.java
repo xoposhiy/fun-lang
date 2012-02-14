@@ -69,7 +69,7 @@ public abstract class AbstractLL1Parser {
 			if (r.nonterm.equals(nonterm) && r.canUseOn(currentLexemeType))
 				return r;
 		}
-		throw new RuntimeException(nonterm + " cant begin with " + currentLexemeType);
+		throw new RuntimeException(nonterm + " can't start with " + currentLexemeType);
 	}
 
 	private static class Rule {

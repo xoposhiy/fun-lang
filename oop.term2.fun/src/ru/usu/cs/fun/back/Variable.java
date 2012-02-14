@@ -8,18 +8,16 @@ public class Variable extends Term {
 	}
 
 	@Override
-	public Term apply(Term arg, Scope scope, EvalObserver observer) {
-		Term evaluted = eval(scope, observer);
+	public Term apply(Term arg, Scope scope) {
+		Term evaluted = eval(scope);
 		if (evaluted == this)
 			return null;
-		return evaluted.apply(arg, scope, observer);
+		return evaluted.apply(arg, scope);
 	}
 
 	@Override
-	public Term eval(Scope scope, EvalObserver observer) {
+	public Term eval(Scope scope) {
 		Term result = scope.get(name);
-		if (!result.equals(this))
-			observer.onReduction(this, result);
 		return result.eval(scope);
 	}
 

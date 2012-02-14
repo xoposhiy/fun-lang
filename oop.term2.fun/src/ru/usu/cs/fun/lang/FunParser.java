@@ -80,7 +80,7 @@ public class FunParser extends AbstractLL1Parser {
 			public Term execute(Object[] items) {
 				String name = ((Lexeme) items[1]).getText();
 				Term term = ((Terms) items[3]).build();
-				scope.add(name, term);
+				scope.add(name, term.eval(scope));
 				return term;
 			}
 		});
@@ -112,11 +112,27 @@ public class FunParser extends AbstractLL1Parser {
 			}
 		});
 
-		// Term ::= 'fun' '(' name ')' Term // return fun(name, body);
-		add("Term", new String[] { "fun", "(", "name", ")", "Term" }, new ParseAction() {
+		// Term ::= 'fun' '(' FunTail // return funTail;
+		add("Term", new String[] { "fun", "(", "FunTail" }, new ParseAction() {
 			public Terms execute(Object[] items) {
-				Term body = ((Terms) items[4]).build();
-				Abstraction abstraction = new Abstraction(((Lexeme) items[2]).getText(), body);
+				return (Terms) items[2];
+			}
+		});
+
+		// FunTail ::= ')' Term // return body;
+		add("FunTail", new String[] { ")", "Term" }, new ParseAction() {
+			public Terms execute(Object[] items) {
+				Term body = ((Terms) items[1]).build();
+				return new Terms(body, null);
+			}
+		});
+
+		// FunTail ::= name ')' Term // return fun(name) body;
+		add("FunTail", new String[] { "name", ")", "Term" }, new ParseAction() {
+			public Terms execute(Object[] items) {
+				Term body = ((Terms) items[2]).build();
+				String name = ((Lexeme) items[0]).getText();
+				Abstraction abstraction = new Abstraction(name, name.startsWith("~"), body);
 				return new Terms(abstraction, null);
 			}
 		});
