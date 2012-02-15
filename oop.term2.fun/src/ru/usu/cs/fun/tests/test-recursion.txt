@@ -8,23 +8,23 @@ f 3;
 
 
 let fibb := fun(n) 
-	= n 1 1 (
-		= n 2 1 (
+	(= n 1) 1 (
+		(= n 2) 1 (
 			+ 
 			(fibb (+ n -1)) 
 			(fibb (+ n -2))
 		)
 	);
 			
-fibb(1);
+fibb 1;
 //>1
-fibb(2);
+fibb 2;
 //>1
-fibb(3);
+fibb 3;
 //>2
-fibb(4);
+fibb 4;
 //>3
-fibb(5);
+fibb 5;
 //>5
-fibb(6);
+fibb 6;
 //>8
