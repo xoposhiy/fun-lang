@@ -41,7 +41,7 @@ public class Add extends Term {
 
 		@Override
 		public String toString(TermsSubstitutor subst) {
-			return toString() + ' ' + subst.substitute(arg1);
+			return Add.this.toString() + ' ' + subst.substitute(arg1);
 		}
 	}
 }
