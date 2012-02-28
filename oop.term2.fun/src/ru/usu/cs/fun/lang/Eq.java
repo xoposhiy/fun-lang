@@ -40,7 +40,7 @@ public class Eq extends Term {
 
 		@Override
 		public String toString(TermsSubstitutor subst) {
-			return toString() + ' ' + subst.substitute(arg1);
+			return Eq.this.toString() + ' ' + subst.substitute(arg1);
 		}
 	}
 }
