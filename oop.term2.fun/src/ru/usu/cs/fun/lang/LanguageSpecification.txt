@@ -9,7 +9,6 @@
     Term ::= Term Term
     Term ::= '(' Term ')'
     Term ::= 'fun' '(' name ')' Term
-    Term ::= 'fun' '(' ')' Term
     
     
     Пояснения.
@@ -78,17 +77,6 @@ let id := fun(x) x;
 let inc := fun(x) + x 1;
 
 let sum := fun(a)fun(b)fun(c) + a (+ b c);
-
-Можно определить функцию без аргументов.
-
-8. Term ::= 'fun' '(' ')' Term
-
-Например, такой код
-
-let print1 := fun() print 1;
-
-определит функцию, печатающую единичку при ее вызове:
-
 
 
 
