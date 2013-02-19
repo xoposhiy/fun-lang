@@ -1,14 +1,17 @@
 package ru.usu.cs.fun.front;
 
-public class AutomatonRecognizer extends BaseRecognizer {
+import java.util.HashSet;
+import java.util.Hashtable;
 
-	public static final int ERROR = -1;
-	public static final int INITIAL_STATE = 0;
 
-	private int[][] transitions;
-	private boolean[] isFinal;
-	private String knownChars;
-	private int automataState;
+public abstract class AutomatonRecognizer extends BaseRecognizer {
+
+	public static final String ERROR = null;
+	public static final String INITIAL_STATE = "";
+
+	private Hashtable<String, Hashtable<String, String>> stateCharState = new Hashtable<String, Hashtable<String,String>>();
+	private Hashtable<String, String> defaultTransitions = new Hashtable<String, String>();
+	private HashSet<String> isFinal = new HashSet<String>();
 
 	public AutomatonRecognizer(String lexemeType) {
 		super(lexemeType);
@@ -17,68 +20,92 @@ public class AutomatonRecognizer extends BaseRecognizer {
 	public AutomatonRecognizer(String lexemeType, boolean invisible) {
 		super(lexemeType, invisible);
 	}
-
+	
 	@Override
-	public void reset() {
-		super.reset();
-		automataState = INITIAL_STATE;
-	}
-
-	protected void setChars(String chars) {
-		this.knownChars = chars;
-	}
-
-	protected void setMaxState(int maxState) {
-		transitions = new int[maxState + 2][];
-		for (int iFrom = 0; iFrom < transitions.length; iFrom++) {
-			transitions[iFrom] = new int[knownChars.length() + 1];
-			for (int ch = 0; ch < transitions[iFrom].length; ch++)
-				transitions[iFrom][ch] = errorState();
+	public Lexeme tryReadLexeme(String s, int startPos) {
+		onStartLexeme();
+		String state = INITIAL_STATE;
+		int lastFinalPos = -1;
+		for(int pos=startPos; pos<s.length(); pos++){
+			char ch = s.charAt(pos);
+			String newState = nextState(state, ch);
+			if (newState == ERROR) 
+				break;
+			if (isFinal.contains(newState))
+				lastFinalPos = pos;
+			onNextState(ch, state, newState);
+			state = newState;
 		}
-		isFinal = new boolean[statesCount()];
-		isFinal[errorState()] = false;
+		if (lastFinalPos < 0) 
+			return null;
+		return createLexeme(s.substring(startPos, lastFinalPos+1));
+	}
+	
+	/**
+	 * For overriding. Called before start recognizing next lexeme
+	 */
+	protected void onStartLexeme() {
+//		System.out.println("start reading " + lexemeType);
 	}
 
-	private int statesCount() {
-		return transitions.length;
+	/**
+	 * For overriding. Called on every transition oldState --(ch)--> newState
+	 */
+	protected void onNextState(char ch, String oldState, String newState) {		
+//		System.out.println(oldState + " - " + ch + " -> " + newState);
 	}
 
-	@Override
-	protected RecognizerState nextState(char ch) {
-		automataState = transitions[automataState][getCharIndex(ch)];
-		if (automataState == errorState())
-			return RecognizerState.dead;
-		if (isFinal[automataState])
-			return RecognizerState.finished;
-		return RecognizerState.alive;
+	protected Lexeme createLexeme(String s) {
+		if (invisibleLexeme)
+			return new Lexeme.Invisible(s, lexemeType);
+		return new Lexeme(s, lexemeType, getValue(s));
 	}
 
-	private int errorState() {
-		return transitions.length - 1;
+	/**
+	 * For overriding. Called after lexeme is recognized
+	 * @return value for Lexeme.value
+	 */
+	protected Object getValue(String text) {
+		return text;
 	}
 
-	protected void addTransition(int from, int to, String chars) {
-		for (char ch : chars.toCharArray())
-			transitions[from][getCharIndex(ch)] = to;
+	private String nextState(String currentState, char ch) {
+		if (currentState == ERROR) return ERROR;
+		String newState = null;
+		String charClass = getCharClass(ch);
+		Hashtable<String, String> transitions = stateCharState.get(currentState);
+		if (transitions != null)
+			newState = transitions.get(charClass);
+		if (newState == null)
+			newState = defaultTransitions.get(currentState);
+		return newState;
 	}
 
-	private int getCharIndex(char ch) {
-		int ind = knownChars.indexOf(ch);
-		if (ind >= 0)
-			return ind;
-		return knownChars.length();
+	protected abstract String getCharClass(char ch);
+
+	/**
+	 * Add transition: from -> to, by character from class named chars 
+	 */
+	protected void transition(String from, String chars, String to) {
+		if (!stateCharState.containsKey(from))
+			stateCharState.put(from, new Hashtable<String, String>());
+		stateCharState.get(from).put(chars, to);
 	}
 
-	protected void addTransition(int from, int to, boolean includeChars, String chars) {
-		for (int i = 0; i < knownChars.length(); i++)
-			if (chars.indexOf(knownChars.charAt(i)) < 0)
-				transitions[from][i] = to;
-		transitions[from][knownChars.length()] = to;
+	/**
+	 * Add transition: from -> to, by all other chars 
+	 * (i.e. not specified by transition(from, chars, to))
+	 */
+	protected void transition(String from, String to) {
+		defaultTransitions.put(from,  to);
 	}
 
-	protected void setFinalStates(int... state) {
-		for (int s : state) {
-			isFinal[s] = true;
+	/**
+	 *  Mark some states as final
+	 */
+	protected void finalStates(String... finals) {
+		for (String s : finals) {
+			isFinal.add(s);
 		}
 	}
 }

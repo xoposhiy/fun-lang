@@ -5,7 +5,6 @@ import ru.usu.cs.fun.back.Application;
 import ru.usu.cs.fun.back.Term;
 import ru.usu.cs.fun.back.Variable;
 import ru.usu.cs.fun.front.AbstractLL1Parser;
-import ru.usu.cs.fun.front.CharReader;
 import ru.usu.cs.fun.front.Lexeme;
 import ru.usu.cs.fun.front.Lexer;
 import ru.usu.cs.fun.front.ParseAction;
@@ -18,21 +17,24 @@ import ru.usu.cs.fun.front.ParseAction;
 // Statement ::= 'let' name ':=' Term ';'
 // Statement ::= Term ';'
 // Term ::= '(' Term ')' Tail
-// Term ::= name Tail
+// Term ::= Atom Tail
 // Term ::= 'fun' '(' name ')' Term Tail
 // Tail ::=
 // Tail ::= Term
+// Atom ::= name
+// Atom ::= int
+
 public class FunParser extends AbstractLL1Parser {
 	private final FunScope scope;
 
-	private static Lexer createLexer(CharReader reader) {
-		return new FunLexer(reader);
+	private static Lexer createLexer(String text) {
+		return new FunLexer(text);
 	}
 
 	// последовательно выполняет все предложения из programBlock
 	// возвращает результат выполнения последнего из них
 	public Term eval(String programBlock) {
-		Lexer lexer = createLexer(new CharReader(programBlock));
+		Lexer lexer = createLexer(programBlock);
 		Object res = executeNext(lexer);
 		Object newRes;
 		while ((newRes = executeNext(lexer)) != null)
@@ -56,6 +58,13 @@ public class FunParser extends AbstractLL1Parser {
 			this.tail = tail;
 		}
 
+		@Override
+		public String toString() {
+			if (head == null) return "[]";
+			if (tail == null) return head.toString();
+			else return head.toString() + " " + tail.toString();
+		}
+		
 		public Term build() {
 			Term result = head;
 			Terms tmpTail = tail;
@@ -104,34 +113,19 @@ public class FunParser extends AbstractLL1Parser {
 			}
 		});
 
-		// Term ::= name Tail // return var(name).apply(Tail);
-		add("Term", new String[] { "name", "Tail" }, new ParseAction() {
+		// Term ::= Atom Tail // return Atom.apply(Tail);
+		add("Term", new String[] {"int", "name"}, new String[] { "Atom", "Tail" }, new ParseAction() {
 			public Terms execute(Object[] items) {
-				Variable var = new Variable(((Lexeme) items[0]).getText());
-				return new Terms(var, (Terms) items[1]);
+				Term atom = (Term)items[0];
+				return new Terms(atom, (Terms) items[1]);
 			}
 		});
 
-		// Term ::= 'fun' '(' FunTail // return funTail;
-		add("Term", new String[] { "fun", "(", "FunTail" }, new ParseAction() {
+		// Term ::= 'fun' '(' name ')' Term // return fun(name) body;
+		add("Term", new String[] { "fun", "(", "name", ")", "Term" }, new ParseAction() {
 			public Terms execute(Object[] items) {
-				return (Terms) items[2];
-			}
-		});
-
-		// FunTail ::= ')' Term // return body;
-		add("FunTail", new String[] { ")", "Term" }, new ParseAction() {
-			public Terms execute(Object[] items) {
-				Term body = ((Terms) items[1]).build();
-				return new Terms(body, null);
-			}
-		});
-
-		// FunTail ::= name ')' Term // return fun(name) body;
-		add("FunTail", new String[] { "name", ")", "Term" }, new ParseAction() {
-			public Terms execute(Object[] items) {
-				Term body = ((Terms) items[2]).build();
-				String name = ((Lexeme) items[0]).getText();
+				Term body = ((Terms) items[4]).build();
+				String name = ((Lexeme) items[2]).getText();
 				Abstraction abstraction = new Abstraction(name, name.startsWith("~"), body);
 				return new Terms(abstraction, null);
 			}
@@ -148,6 +142,21 @@ public class FunParser extends AbstractLL1Parser {
 		add("Tail", new String[] { "Term" }, new ParseAction() {
 			public Terms execute(Object[] items) {
 				return (Terms) items[0];
+			}
+		});
+
+		// Atom ::= name
+		add("Atom", new String[] { "name" }, new ParseAction() {
+			public Variable execute(Object[] items) {
+				return new Variable(((Lexeme)items[0]).getText());				
+			}
+		});
+
+		// Atom ::= int
+		add("Atom", new String[] { "int" }, new ParseAction() {
+			public Int execute(Object[] items) {
+				Object value = ((Lexeme)items[0]).getValue();
+				return new Int((Integer)value);				
 			}
 		});
 
