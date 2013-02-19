@@ -1,15 +1,15 @@
 package ru.usu.cs.fun.front;
 
-public class Space extends BaseRecognizer {
+public class Space extends AutomatonRecognizer {
 
 	public Space() {
 		super("space", true);
+		transition(INITIAL_STATE, " ", INITIAL_STATE);
+		finalStates(INITIAL_STATE);
 	}
-
 	@Override
-	protected RecognizerState nextState(char ch) {
-		boolean isSpace = ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n';
-		return isSpace ? RecognizerState.finished : RecognizerState.dead;
+	protected String getCharClass(char ch) {
+		return (ch == ' ' || ch == '\t' || ch == '\r' || ch == '\n') ? " " : "*";
 	}
 
 }

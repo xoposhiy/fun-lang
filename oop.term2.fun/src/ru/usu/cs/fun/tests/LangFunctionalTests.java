@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import junit.framework.TestCase;
-import ru.usu.cs.fun.front.CharReader;
 import ru.usu.cs.fun.front.Lexer;
 import ru.usu.cs.fun.lang.FunLexer;
 import ru.usu.cs.fun.lang.FunParser;
@@ -52,7 +51,7 @@ public class LangFunctionalTests extends TestCase {
 		try {
 			while ((line = r.readLine()) != null) {
 				if (line.startsWith("//>")) {
-					Lexer lexer = new FunLexer(new CharReader(content));
+					Lexer lexer = new FunLexer(content);
 					try {
 						runTestsSet(fun, scope, lexer, line.substring(3));
 					} catch (Throwable e) {

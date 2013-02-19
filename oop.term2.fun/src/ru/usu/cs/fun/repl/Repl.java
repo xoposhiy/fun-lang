@@ -2,7 +2,6 @@ package ru.usu.cs.fun.repl;
 
 import java.util.Scanner;
 
-import ru.usu.cs.fun.front.CharReader;
 import ru.usu.cs.fun.lang.FunLexer;
 import ru.usu.cs.fun.lang.FunParser;
 
@@ -21,7 +20,7 @@ public class Repl {
 			if (!line.endsWith(";"))
 				line = line + ";";
 			try {
-				parser.evalNext(new FunLexer(new CharReader(line)));
+				parser.evalNext(new FunLexer(line));
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 			}

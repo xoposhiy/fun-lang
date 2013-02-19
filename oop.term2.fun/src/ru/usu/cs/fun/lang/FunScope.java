@@ -35,23 +35,11 @@ public class FunScope implements Scope {
 			return new Add();
 		if (name.equals("print"))
 			return new Print();
-		result = items.get(name);
-		return result;
+		return items.get(name);
 	}
 	
 	private Term resolveConstant(String name) {
-		Term result = resolveInt(name);
-		if (result == null)
-			result = resolveBool(name);
-		return result;
-	}
-
-	private Term resolveInt(String name) {
-		try {
-			return new Int(Integer.parseInt(name));
-		} catch (Exception e) {
-			return null;
-		}
+		return resolveBool(name);
 	}
 
 	private Term resolveBool(String name) {

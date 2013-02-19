@@ -46,13 +46,13 @@ public abstract class AbstractLL1Parser {
 						items[i] = lexer.current();
 						lexer.readNext();
 					} else
-						throw new RuntimeException(ruleItem + " expected but " + lexer.current().getType() + " found");
+						throw new RuntimeException(ruleItem + " expected but " + lexer.current().getType() + " '"+lexer.current().getText() + "' found");
 				} else
 					items[i] = execute(lexer, ruleItem);
 			}
 			return rule.executeAction(items);
 		} catch (Exception e) {
-			throw new RuntimeException(nonterm + "->" + e.getMessage(), e);
+			throw new RuntimeException(rule + "\r\n" + e.getMessage(), e);
 		}
 	}
 
@@ -83,7 +83,9 @@ public abstract class AbstractLL1Parser {
 		private final ParseAction action;
 
 		public Object executeAction(Object[] items) {
-			return action.execute(items);
+			Object value = action.execute(items);
+			//System.out.println("executing: " + this + " -> " + value);
+			return value;
 		}
 
 		public boolean canUseOn(String currentLexemeType) {
@@ -94,6 +96,16 @@ public abstract class AbstractLL1Parser {
 					return true;
 			}
 			return false;
+		}
+		
+		@Override
+		public String toString() {
+			StringBuffer sb = new StringBuffer();
+			sb.append(nonterm).append(" ::= ");
+			for (String item : body) {
+				sb.append(item).append(" ");
+			}	
+			return sb.toString();
 		}
 
 		public Rule(String nonterm, String[] lookupSymbols, String[] body, ParseAction action) {
