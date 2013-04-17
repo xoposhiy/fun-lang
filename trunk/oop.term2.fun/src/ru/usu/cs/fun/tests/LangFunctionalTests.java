@@ -1,4 +1,4 @@
-﻿package ru.usu.cs.fun.tests;
+package ru.usu.cs.fun.tests;
 
 import java.io.BufferedReader;
 import java.io.IOException;

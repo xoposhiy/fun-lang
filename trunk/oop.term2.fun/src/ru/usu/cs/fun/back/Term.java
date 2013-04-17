@@ -1,4 +1,4 @@
-﻿package ru.usu.cs.fun.back;
+package ru.usu.cs.fun.back;
 
 // Класс представляющий Лямбда выражение.
 public abstract class Term {

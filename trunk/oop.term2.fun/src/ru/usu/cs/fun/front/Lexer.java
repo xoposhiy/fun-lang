@@ -1,4 +1,4 @@
-﻿package ru.usu.cs.fun.front;
+package ru.usu.cs.fun.front;
 
 public interface Lexer {
 	// при каждом новом вызове возвращает очередную прочитанную лексему
