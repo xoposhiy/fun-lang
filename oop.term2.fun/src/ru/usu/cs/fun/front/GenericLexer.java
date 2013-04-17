@@ -1,4 +1,4 @@
-﻿package ru.usu.cs.fun.front;
+package ru.usu.cs.fun.front;
 
 
 public class GenericLexer implements Lexer {

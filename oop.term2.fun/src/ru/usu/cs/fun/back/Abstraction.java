@@ -1,4 +1,4 @@
-﻿package ru.usu.cs.fun.back;
+package ru.usu.cs.fun.back;
 
 public class Abstraction extends Term {
 

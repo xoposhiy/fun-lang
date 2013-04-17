@@ -1,4 +1,4 @@
-﻿package ru.usu.cs.fun.lang;
+package ru.usu.cs.fun.lang;
 
 import ru.usu.cs.fun.back.Abstraction;
 import ru.usu.cs.fun.back.Application;
